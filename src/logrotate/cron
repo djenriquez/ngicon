@@ -1,0 +1,10 @@
+/var/log/cron.log {
+        daily
+        missingok
+        rotate 15
+        compress
+        delaycompress
+        notifempty
+        create 640 nginx adm
+        sharedscripts
+}

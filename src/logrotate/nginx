@@ -1,0 +1,27 @@
+/var/log/nginx/access.log {
+        daily
+        missingok
+        rotate 15
+        compress
+        delaycompress
+        notifempty
+        create 640 nginx adm
+        sharedscripts
+        postrotate
+                [ -f /var/run/nginx.pid ] && kill -USR1 `cat /var/run/nginx.pid`
+        endscript
+}
+
+/var/log/nginx/error.log {
+        daily
+        missingok
+        rotate 15
+        compress
+        delaycompress
+        notifempty
+        create 640 nginx adm
+        sharedscripts
+        postrotate
+                [ -f /var/run/nginx.pid ] && kill -USR1 `cat /var/run/nginx.pid`
+        endscript
+}
