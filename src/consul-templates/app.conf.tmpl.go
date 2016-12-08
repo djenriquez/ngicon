@@ -2,13 +2,12 @@
 {{ key (print "http_block_config" ) }}
 {{ end }}
 
-{{range services}}upstream {{ .Name }}{
+{{ range services }}{{ if key (print .Name "/domains" ) }}upstream {{ .Name }}{
         {{ range service .Name }}server {{.Address}}:{{.Port}};
         {{ end }}
 }
-{{end}}
 
-{{ range services }}{{ if key (print .Name "/domains" ) }}server {
+server {
   listen 80;
   server_name {{ key (print .Name "/domains" ) }};
   {{ if key (print .Name "/server_block_config" ) }}{{ key (print .Name "/server_block_config" ) }}{{ end }}
