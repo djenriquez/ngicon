@@ -1,4 +1,4 @@
-{{ if key (print "nginx_conf" ) }}{{ key (print "nginx_conf" ) }}
+{{ if keyExists (print "nginx_conf" ) }}{{ keyOrDefault (print "nginx_conf" ) "" }}
 {{ else }}user  root;
 worker_processes  auto;
 worker_rlimit_nofile 100000;
@@ -37,7 +37,7 @@ http {
 
     #gzip  on;
 
-    include /etc/nginx/conf.d/app.conf;
+    include /etc/nginx/conf.d/*.conf;
     
     server {
         listen        80 default_server;
@@ -57,6 +57,6 @@ http {
 }
 
 stream {
-    include /etc/nginx/conf.d/stream.conf;
+    include /etc/nginx/stream.d/*.conf;
 }
 {{ end }}
