@@ -1,8 +1,10 @@
 #!/bin/bash
-source /etc/envvars && \
-exec consul-template \
+source /etc/envvars
+
+for TEMPLATE in /etc/consul-templates/*.tmpl.go;
+do
+  FILE_NAME=`echo $TEMPLATE | sed -e 's/\(.*\)\(.tmpl.go\)/\1/'`
+  exec consul-template \
   -consul=${CONSUL_ADDRESS}:${CONSUL_PORT} \
-  -template "/etc/consul-templates/app.conf.tmpl.go:/etc/nginx/conf.d/app.conf:sv hup nginx" \
-  -template "/etc/consul-templates/stream.conf.tmpl.go:/etc/nginx/conf.d/stream.conf:sv hup nginx" \
-  -template "/etc/consul-templates/nginx.conf.tmpl.go:/etc/nginx/nginx.conf:sv hup nginx" \
-  -log-level "err"
+  -template "/etc/consul-templates/$TEMPLATE:/etc/nginx/conf.d/$FILE_NAME:sv hup nginx"
+done
