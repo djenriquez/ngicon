@@ -1,6 +1,8 @@
 #!/bin/bash
 source /etc/envvars
 
+: ${LOG_LEVEL:="warn"}
+
 cd /etc/consul-templates/
 for TEMPLATE in *.tmpl.go;
 do
@@ -8,10 +10,12 @@ do
   if [[ "$FILE_NAME" = "nginx.conf" ]]; then
     exec consul-template \
     -consul-addr=${CONSUL_ADDRESS}:${CONSUL_PORT} \
-    -template "/etc/consul-templates/$TEMPLATE:/etc/nginx/$FILE_NAME:sv hup nginx" &
+    -template "/etc/consul-templates/$TEMPLATE:/etc/nginx/$FILE_NAME:sv hup nginx" \
+    -log-level ${LOG_LEVEL} &
   else
     exec consul-template \
     -consul-addr=${CONSUL_ADDRESS}:${CONSUL_PORT} \
-    -template "/etc/consul-templates/$TEMPLATE:/etc/nginx/conf.d/$FILE_NAME:sv hup nginx" &
+    -template "/etc/consul-templates/$TEMPLATE:/etc/nginx/conf.d/$FILE_NAME:sv hup nginx" \
+    -log-level ${LOG_LEVEL} &
   fi
 done
