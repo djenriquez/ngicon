@@ -11,7 +11,7 @@ rm -v /etc/nginx/conf.d/*
 RUN pip install awscli
 
 # Install Consul-Template
-ENV CT_VERSION 0.16.0
+ENV CT_VERSION 0.18.1
 ENV CT_FILE consul-template_${CT_VERSION}_linux_amd64.zip
 ENV CT_URL https://releases.hashicorp.com/consul-template/${CT_VERSION}/$CT_FILE
 RUN curl -O $CT_URL && \
