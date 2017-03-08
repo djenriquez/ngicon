@@ -2,20 +2,19 @@
 source /etc/envvars
 
 : ${LOG_LEVEL:="warn"}
+COMMAND="consul-template -consul-addr=$CONSUL_ADDRESS:$CONSUL_PORT"
 
 cd /etc/consul-templates/
 for TEMPLATE in *.tmpl.go;
 do
   FILE_NAME=`echo $TEMPLATE | sed -e 's/\(.*\)\(.tmpl.go\)/\1/'`
   if [[ "$FILE_NAME" = "nginx.conf" ]]; then
-    exec consul-template \
-    -consul-addr=${CONSUL_ADDRESS}:${CONSUL_PORT} \
-    -template "/etc/consul-templates/$TEMPLATE:/etc/nginx/$FILE_NAME:sv hup nginx" \
-    -log-level ${LOG_LEVEL} &
+    COMMAND+=" -template \"/etc/consul-templates/$TEMPLATE:/etc/nginx/$FILE_NAME:sv hup nginx\""
   else
-    exec consul-template \
-    -consul-addr=${CONSUL_ADDRESS}:${CONSUL_PORT} \
-    -template "/etc/consul-templates/$TEMPLATE:/etc/nginx/conf.d/$FILE_NAME:sv hup nginx" \
-    -log-level ${LOG_LEVEL} &
+    COMMAND+=" -template \"/etc/consul-templates/$TEMPLATE:/etc/nginx/conf.d/$FILE_NAME:sv hup nginx\""
   fi
 done
+
+COMMAND+=" -log-level $LOG_LEVEL"
+
+eval $COMMAND
