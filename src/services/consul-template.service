@@ -1,10 +1,11 @@
 #!/bin/bash
 source /etc/envvars
 
-for TEMPLATE in /etc/consul-templates/*.tmpl.go;
+cd /etc/consul-templates/
+for TEMPLATE in *.tmpl.go;
 do
   FILE_NAME=`echo $TEMPLATE | sed -e 's/\(.*\)\(.tmpl.go\)/\1/'`
   exec consul-template \
-  -consul=${CONSUL_ADDRESS}:${CONSUL_PORT} \
+  -consul-addr=${CONSUL_ADDRESS}:${CONSUL_PORT} \
   -template "/etc/consul-templates/$TEMPLATE:/etc/nginx/conf.d/$FILE_NAME:sv hup nginx"
 done
