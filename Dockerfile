@@ -2,7 +2,7 @@ FROM nginx:1.13
 MAINTAINER DJ Enriquez
 
 RUN apt-get update && \
-apt-get -y install curl runit cron logrotate unzip python-pip && \
+apt-get -y install curl runit cron logrotate unzip && \
 rm -rf /var/lib/apt/lists/* && \
 mkdir /etc/nginx/tcp-proxy/ && \
 rm -v /etc/nginx/conf.d/* 
