@@ -24,6 +24,7 @@ djenriquez/ngicon
 ## Environment Variables
 * CONSUL_ADDRESS: The address of Consul. It is recommended to point Ngicon at the local Consul service. Defaults to `localhost`
 * CONSUL_PORT: The port to access Consul. Defaults to `8500`
+* CT_ARGS: Additional arguments to pass into consul-template CLI, ex: `-dedup`.
 
 ## Templating
 Templates to be parsed should be mounted to `/etc/consul-templates/` and end in `.tmpl.go`. Ngicon will take the file, strip off the `.tmpl.go` and place the new file in `/etc/nginx/conf.d/`.
