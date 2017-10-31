@@ -4,6 +4,10 @@ source /etc/envvars
 : ${LOG_LEVEL:="warn"}
 COMMAND="consul-template -consul-addr=$CONSUL_ADDRESS:$CONSUL_PORT"
 
+if [ -v $CT_ARGS ]; then 
+  COMMAND+=" $CT_ARGS"
+fi
+
 cd /etc/consul-templates/
 for TEMPLATE in *.tmpl.go;
 do
