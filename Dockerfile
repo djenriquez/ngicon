@@ -31,6 +31,7 @@ ADD src/crontab /etc/crontab
 
 # Start commands
 ADD start.sh /usr/sbin/start.sh
+ADD nginx-check /usr/sbin/nginx-check
 
 ENV CONSUL_ADDRESS localhost
 ENV CONSUL_PORT 8500
