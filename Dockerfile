@@ -29,6 +29,9 @@ ADD src/logrotate/ /etc/logrotate.d/
 # Add crontab
 ADD src/crontab /etc/crontab
 
+# Add nginx-check
+ADD src/nginx-check /usr/sbin/nginx-check
+
 # Start commands
 ADD start.sh /usr/sbin/start.sh
 

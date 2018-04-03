@@ -1,0 +1,15 @@
+#!/bin/bash
+source /etc/envvars
+NGINX_TEST=$(nginx -t 2>&1)
+
+echo $NGINX_TEST > /etc/nginx/status.txt
+
+if [[ $NGINX_TEST == *"failed"* ]]
+then
+  echo "ngicon.conf.[app=$APP]ok:2|g" > /dev/udp/localhost/8125
+elif [[ $NGINX_TEST == *"success"* ]]
+then
+  echo "ngicon.conf.[app=$APP]ok:0|g" > /dev/udp/localhost/8125
+else
+  echo "ngicon.conf.[app=$APP]ok:1|g" > /dev/udp/localhost/8125
+fi

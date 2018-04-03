@@ -13,11 +13,11 @@ for TEMPLATE in *.tmpl.go;
 do
   FILE_NAME=`echo $TEMPLATE | sed -e 's/\(.*\)\(.tmpl.go\)/\1/'`
   if [[ "$FILE_NAME" = "nginx.conf" ]]; then
-    COMMAND+=" -template \"/etc/consul-templates/$TEMPLATE:/etc/nginx/$FILE_NAME:sv hup nginx\""
+    COMMAND+=" -template \"/etc/consul-templates/$TEMPLATE:/etc/nginx/$FILE_NAME:nginx-check && sv hup nginx\""
   elif [[ "$FILE_NAME" = "stream.conf" ]]; then
-    COMMAND+=" -template \"/etc/consul-templates/$TEMPLATE:/etc/nginx/stream.d/$FILE_NAME:sv hup nginx\""
+    COMMAND+=" -template \"/etc/consul-templates/$TEMPLATE:/etc/nginx/stream.d/$FILE_NAME:nginx-check && sv hup nginx\""
   else
-    COMMAND+=" -template \"/etc/consul-templates/$TEMPLATE:/etc/nginx/conf.d/$FILE_NAME:sv hup nginx\""
+    COMMAND+=" -template \"/etc/consul-templates/$TEMPLATE:/etc/nginx/conf.d/$FILE_NAME:nginx-check && sv hup nginx\""
   fi
 done
 
