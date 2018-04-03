@@ -10,6 +10,8 @@ then
 elif [[ $NGINX_TEST == *"success"* ]]
 then
   echo "ngicon.conf.[app=$APP]ok:0|g" > /dev/udp/localhost/8125
+  sv hup nginx
 else
   echo "ngicon.conf.[app=$APP]ok:1|g" > /dev/udp/localhost/8125
+  sv hup nginx
 fi
