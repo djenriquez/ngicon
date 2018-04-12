@@ -16,3 +16,4 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 # Forces the nginx-check to happen atleast once a minute
 * * * * * root nginx-check
+# force newline
