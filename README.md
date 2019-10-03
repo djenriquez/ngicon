@@ -34,6 +34,7 @@ Templates to be parsed should be mounted to `/etc/consul-templates/` and end in 
 NGICON runs a check against the `nginx -t` command against the configuration. This test will run every minute through cron AND everytime consul-template attempts to process a change to the config.
 
 Results of the test are sent to localhost:8125/udp as the metric `nginx.conf.ok`, with an optional dimension of `app`, which reads in the environment variable `$APP`. This assumes an optional StatsD listener exists. The test returns:
+
 |Result | Status |
 |---:|---|
 | 0 | Good |
